@@ -24,6 +24,34 @@ class Controller extends BaseController
     }
 
     /**
+     * Search gifs
+     */
+    public function searchGifs(Request $request)
+    {
+        $this->client = ClientFactory::makeClient(ApiEnum::GIPHY_API);
+        $query = [
+            'q' => $request->input('keyword'),
+        ];
+
+        return $this->client->search($query);
+
+    }
+
+    /**
+     * Get a random gif
+     */
+    public function randomGif(Request $request)
+    {
+        $this->client = ClientFactory::makeClient(ApiEnum::GIPHY_API);
+        $query = [
+            'tag' => $request->input('tag'),
+        ];
+
+        return $this->client->random($query);
+
+    }
+
+    /**
      * Return the Astronomy Picture of the Day
      */
     public function getAstronomyPicture()
@@ -31,7 +59,6 @@ class Controller extends BaseController
         $this->client = ClientFactory::makeClient(ApiEnum::NASA_API);
 
         return json_encode($this->client->getApod());
-
     }
 
     /**
@@ -46,6 +73,15 @@ class Controller extends BaseController
             'language' => $request->input('language')
         ];
         return json_encode($this->client->search($query));
+    }
 
+    /**
+     * Return a list of movies genres
+     */
+    public function listMovieGenres()
+    {
+        $this->client = ClientFactory::makeClient(ApiEnum::MOVIES_API);
+
+        return json_encode($this->client->genres());
     }
 }
