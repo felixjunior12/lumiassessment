@@ -23,4 +23,9 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->group(['prefix' => 'gifs'], function () use ($router) {
         $router->get('/trending', 'Controller@getTrendingGifs');
     });
+
+    $router->group(['prefix' => 'nasa'], function () use ($router) {
+        $router->get('/apod', 'Controller@getAstronomyPicture');
+    });
+    
 });

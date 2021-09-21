@@ -21,4 +21,15 @@ class Controller extends BaseController
         return $this->client->trending();
 
     }
+
+    /**
+     * Return the Astronomy Picture of the Day
+     */
+    public function getAstronomyPicture()
+    {
+        $this->client = ClientFactory::makeClient(ApiEnum::NASA_API);
+
+        return json_encode($this->client->getApod());
+
+    }
 }
