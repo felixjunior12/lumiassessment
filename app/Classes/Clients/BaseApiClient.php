@@ -52,10 +52,20 @@ class BaseApiClient implements ApiClientInterface
      * @param  string $method
      * @param  string $endpoint
      * @param  array $body
+     * @param  array $query
      * @return GuzzleHttp\Psr7\Response
      */
-    public function doRequest(string $method, string $endpoint, array $body = []): Response
+    public function doRequest(string $method, string $endpoint, array $body = [], ?array $query = null): Response
     {
+
+        $default_query = [
+            'api_key' => $this->api_key
+        ];
+        if($query) {
+            foreach($query as $key => $value){
+                $default_query[$key] = $value;
+            }
+        }
         return $this->http_client->request(
             $method,
             $endpoint,
@@ -63,9 +73,7 @@ class BaseApiClient implements ApiClientInterface
                 'headers' => [
                     'Content-type' => 'application/json'
                 ],
-                'query' => [
-                    'api_key' => $this->api_key
-                ],
+                'query' => $default_query,
                 'body'    => empty($body) ? '' : json_encode($body)
             ]
         );

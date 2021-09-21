@@ -27,5 +27,9 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->group(['prefix' => 'nasa'], function () use ($router) {
         $router->get('/apod', 'Controller@getAstronomyPicture');
     });
-    
+
+    $router->group(['prefix' => 'movies'], function () use ($router) {
+        $router->get('/search', 'Controller@searchMovie');
+    });
+
 });

@@ -4,6 +4,7 @@ namespace App\Classes;
 
 use App\Classes\Clients\ApiClientInterface;
 use App\Classes\Clients\GiphyApiClient;
+use App\Classes\Clients\MovieDbApiClient;
 use App\Classes\Clients\NasaApiClient;
 use App\Exceptions\Handler;
 /**
@@ -28,6 +29,8 @@ class ClientFactory
                 return new GiphyApiClient(env('BASE_URI_GIPHY'), env('APP_KEY_GIPHY'));
             case ApiEnum::NASA_API:
                 return new NasaApiClient(env('BASE_URI_NASA'), env('APP_KEY_NASA'));
+            case ApiEnum::MOVIES_API:
+                return new MovieDbApiClient(env('BASE_URI_MOVIES'), env('APP_KEY_MOVIES'));
             default:
                 throw new Handler('Api name do not recognized ');
         }

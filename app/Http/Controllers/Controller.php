@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Classes\ApiEnum;
 use App\Classes\ClientFactory;
+use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class Controller extends BaseController
@@ -30,6 +31,21 @@ class Controller extends BaseController
         $this->client = ClientFactory::makeClient(ApiEnum::NASA_API);
 
         return json_encode($this->client->getApod());
+
+    }
+
+    /**
+     * Return a list of movies matching with the search
+     */
+    public function searchMovie(Request $request)
+    {
+
+        $this->client = ClientFactory::makeClient(ApiEnum::MOVIES_API);
+        $query = [
+            'query' => $request->input('name'),
+            'language' => $request->input('language')
+        ];
+        return json_encode($this->client->search($query));
 
     }
 }
