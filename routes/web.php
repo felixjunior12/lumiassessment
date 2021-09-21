@@ -22,5 +22,17 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->group(['prefix' => 'gifs'], function () use ($router) {
         $router->get('/trending', 'Controller@getTrendingGifs');
+        $router->get('/search', 'Controller@searchGifs');
+        $router->get('/random', 'Controller@randomGif');
     });
+
+    $router->group(['prefix' => 'nasa'], function () use ($router) {
+        $router->get('/apod', 'Controller@getAstronomyPicture');
+    });
+
+    $router->group(['prefix' => 'movies'], function () use ($router) {
+        $router->get('/search', 'Controller@searchMovie');
+        $router->get('/genres', 'Controller@listMovieGenres');
+    });
+
 });
